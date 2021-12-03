@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using DG.Tweening;
 
 public class CircleHandler : MonoBehaviour
@@ -13,21 +12,22 @@ public class CircleHandler : MonoBehaviour
         _circleSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    //public void OnButtonClick()
-    //{
-    //    ChangeToRandomColor();
-    //}
+    public void OnButtonClick()
+    {
+        ChangeToRandomColor();
+        MoveCircle();
+    }
 
-    public void ChangeToRandomColor()
+    private void ChangeToRandomColor()
     {
         _circleSpriteRenderer.material.color = Random.ColorHSV(0f, 1f, 0.1f, 1f, 0.1f, 1f);
     }
 
-    public void MoveCircle()
+    private void MoveCircle()
     {
-        transform.DOMoveY(_endPosY, _moveDuration)
-         .ChangeStartValue(new Vector2(transform.position.x, _startPosY))
-         .SetLoops(_loops, LoopType.Yoyo)
-         .SetEase(Ease.InOutSine);
+        transform.DOLocalMoveY(_endPosY, _moveDuration)
+            .SetLoops(_loops, LoopType.Yoyo)
+            .ChangeStartValue(new Vector2(transform.position.x, _startPosY))
+            .SetEase(Ease.InOutSine);
     }
 }
