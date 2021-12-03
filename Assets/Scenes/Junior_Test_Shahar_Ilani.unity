@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPosY: 0
-  _endPosY: -3
+  _endPosY: -4
   _moveDuration: 0.45
   _loops: 2
 --- !u!1 &519420028
