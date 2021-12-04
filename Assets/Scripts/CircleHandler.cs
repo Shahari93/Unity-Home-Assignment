@@ -1,21 +1,23 @@
 using UnityEngine;
-using DG.Tweening;
+using System.Collections;
 
 public class CircleHandler : MonoBehaviour
 {
     private SpriteRenderer _circleSpriteRenderer;
-    [SerializeField] float _startPosY, _endPosY, _moveDuration;
-    [SerializeField] int _loops;
+    private Animator _circleAnim;
+
 
     private void Awake()
     {
         _circleSpriteRenderer = GetComponent<SpriteRenderer>();
+        _circleAnim = GetComponent<Animator>();
     }
 
     public void OnButtonClick()
     {
-        ChangeToRandomColor();
-        MoveCircle();
+        StartCoroutine(ControlCircle());
+        //ChangeToRandomColor();
+        //MoveCircle();
     }
 
     private void ChangeToRandomColor()
@@ -25,9 +27,19 @@ public class CircleHandler : MonoBehaviour
 
     private void MoveCircle()
     {
-        transform.DOLocalMoveY(_endPosY, _moveDuration)
-            .SetLoops(_loops, LoopType.Yoyo)
-            .ChangeStartValue(new Vector2(transform.position.x, _startPosY))
-            .SetEase(Ease.InOutSine);
+        _circleAnim.SetTrigger("IsMove");
+        //transform.DOLocalPath(pathWaypoints, _moveDuration, PathType.Linear, PathMode.TopDown2D);
+        //transform.DOLocalMoveY(_endPosY, _moveDuration)
+        //   .SetLoops(_loops, LoopType.Yoyo)
+        //   .ChangeStartValue(new Vector2(transform.position.x, _startPosY))
+        //   .SetEase(Ease.InOutSine);
+    }
+
+    IEnumerator ControlCircle()
+    {
+        ChangeToRandomColor();
+        MoveCircle();
+        yield return new WaitForSecondsRealtime(0.3f);
+        _circleAnim.ResetTrigger("IsMove");
     }
 }
