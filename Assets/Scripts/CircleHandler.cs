@@ -6,15 +6,15 @@ public class CircleHandler : MonoBehaviour
     private SpriteRenderer _circleSpriteRenderer;
     private Animator _circleAnim;
 
-    private WaitForSecondsRealtime waitForTriggerReset;
-    [SerializeField] float waitForTriggerResetTime;
+    private WaitForSecondsRealtime _waitForTriggerReset;
+    [SerializeField] float _waitForTriggerResetTime;
 
 
     private void Awake()
     {
         _circleSpriteRenderer = GetComponent<SpriteRenderer>();
         _circleAnim = GetComponent<Animator>();
-        waitForTriggerReset = new WaitForSecondsRealtime(waitForTriggerResetTime);
+        _waitForTriggerReset = new WaitForSecondsRealtime(_waitForTriggerResetTime);
     }
 
     public void OnButtonClick()
@@ -36,7 +36,7 @@ public class CircleHandler : MonoBehaviour
     {
         ChangeToRandomColor();
         MoveCircle();
-        yield return waitForTriggerReset;
+        yield return _waitForTriggerReset;
         _circleAnim.ResetTrigger("IsMove");
     }
 }
